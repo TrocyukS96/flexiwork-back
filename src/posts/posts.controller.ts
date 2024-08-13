@@ -21,18 +21,18 @@ class GetPostsDto{
   }
   
 
-@Controller('/posts')
+@Controller('api')
 export class PostsController  {
     constructor (private readonly postsService:PostsService){}
 
-    @Get()
+    @Get('posts')
     async getPosts(): Promise<GetPostsDto> {
       const posts =await this.postsService.getPosts()
       console.log('posts', posts)
       return posts
     }
   
-    @Post()
+    @Post('posts')
     async createPost(@Body() createPostDto: CreatePostDto) {
       return await this.postsService.createPost(createPostDto);
     }
