@@ -1,13 +1,16 @@
 import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common";
 import { Post as PostModel, Prisma } from "@prisma/client";
 import { PostsService } from "./posts.service";
+import { ApiOkResponse, ApiProperty } from "@nestjs/swagger";
 
 class PostDto {
+
     title:string
     description:string
   }
 
 class GetPostsDto{
+  @ApiProperty()
     posts:PostDto[]
   }
   
@@ -21,18 +24,21 @@ class GetPostsDto{
   }
   
 
-@Controller('api')
+@Controller('posts')
 export class PostsController  {
     constructor (private readonly postsService:PostsService){}
 
-    @Get('posts')
+    @Get('')
+    @ApiOkResponse({
+        type:GetPostsDto
+      })
     async getPosts(): Promise<GetPostsDto> {
       const posts =await this.postsService.getPosts()
       console.log('posts', posts)
       return posts
     }
   
-    @Post('posts')
+    @Post('')
     async createPost(@Body() createPostDto: CreatePostDto) {
       return await this.postsService.createPost(createPostDto);
     }
