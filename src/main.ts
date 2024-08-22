@@ -11,7 +11,11 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.setGlobalPrefix('api');
 
-  const config = new DocumentBuilder().setTitle('FlexiWork').build()
+  const config = new DocumentBuilder()
+  .setTitle('FlexiWork')
+  .setDescription('API documentation for FlexiWork')
+  .setVersion('1.0')
+  .build();
 
   const document = SwaggerModule.createDocument(app,config)
 
