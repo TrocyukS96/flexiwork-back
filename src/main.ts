@@ -9,12 +9,13 @@ async function bootstrap() {
   app.use(cookieParser());
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
+  app.setGlobalPrefix('api');
 
   const config = new DocumentBuilder().setTitle('FlexiWork').build()
 
   const document = SwaggerModule.createDocument(app,config)
 
-  SwaggerModule.setup('api/docs', app, document)
+  SwaggerModule.setup('docs', app, document)
 
   await app.listen(4200, '0.0.0.0');
 }
