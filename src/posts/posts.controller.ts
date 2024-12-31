@@ -34,7 +34,6 @@ export class PostsController  {
       })
     async getPosts(): Promise<GetPostsDto> {
       const posts =await this.postsService.getPosts()
-      console.log('posts', posts)
       return posts
     }
   
