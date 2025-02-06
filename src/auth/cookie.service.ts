@@ -9,8 +9,10 @@ export class CookieService {
     res.cookie(CookieService.tokenKey, token, {
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000,
-      sameSite: 'none',
-      secure: false, // Для локальной разработки
+      sameSite: 'lax',
+      // domain: 'localhost',  // Указываем правильный домен, если нужно
+      // path: '/',  
+      // secure: false, // Для локальной разработки
     });
   }
 
