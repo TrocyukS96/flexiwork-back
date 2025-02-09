@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common";
-import { Post as PostModel, Prisma } from "@prisma/client";
-import { PostsService } from "./posts.service";
+import { Body, Controller, Delete, Get, Param, Post, UseGuards } from "@nestjs/common";
 import { ApiOkResponse, ApiProperty } from "@nestjs/swagger";
+import { Post as PostModel } from "@prisma/client";
+import { PostsService } from "./posts.service";
+import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
 class PostDto {
 
@@ -32,6 +33,7 @@ export class PostsController  {
     @ApiOkResponse({
         type:GetPostsDto
       })
+    @UseGuards(JwtAuthGuard)
     async getPosts(): Promise<GetPostsDto> {
       const posts =await this.postsService.getPosts()
       return posts

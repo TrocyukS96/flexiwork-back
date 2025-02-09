@@ -3,6 +3,7 @@ import { Prisma } from '@prisma/client';
 import { UsersService } from 'src/users/users.service';
 import { PasswordService } from './password.service';
 import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class AuthService {
@@ -29,7 +30,11 @@ export class AuthService {
           email: newUser.email,
         });
     
-        return { accessToken };
+        return { accessToken, user:{
+          email:newUser?.email,
+          id:newUser?.id,
+          name:newUser?.name
+        } };
       }
       async signIn(email: string, password: string) {
         const user = await this.usersService.findByEmail(email);
@@ -48,7 +53,10 @@ export class AuthService {
           id: user.id,
           email: user.email,
         });
-    
-        return { accessToken };
+        return { accessToken, user:{
+          email:user?.email,
+          id:user?.id,
+          name:user?.name,
+        } };
       }
 }
